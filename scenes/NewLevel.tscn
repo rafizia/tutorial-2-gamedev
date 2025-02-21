@@ -1,0 +1,163 @@
+[gd_scene load_steps=17 format=3 uid="uid://b2tnfltc65j46"]
+
+[ext_resource type="Texture2D" uid="uid://egcn4cjayeqe" path="res://assets/Clouds 3/1.png" id="1_7efic"]
+[ext_resource type="PackedScene" uid="uid://bfvg30kagogmu" path="res://scenes/SnowPlatform.tscn" id="1_ba7cs"]
+[ext_resource type="Script" path="res://scenes/SnowPlatform.gd" id="1_jk8ti"]
+[ext_resource type="Texture2D" uid="uid://c4o46a3coq2pc" path="res://assets/Clouds 3/3.png" id="2_tiuxr"]
+[ext_resource type="PackedScene" uid="uid://c7ik8qqeqdtdw" path="res://scenes/NewShip.tscn" id="2_wotnx"]
+[ext_resource type="Script" path="res://scenes/objective_area_level_2.gd" id="3_5cjj6"]
+[ext_resource type="PackedScene" uid="uid://jaebkeycd43n" path="res://scenes/kill_zone.tscn" id="6_dq3m5"]
+[ext_resource type="Texture2D" uid="uid://dh610bbucs6rh" path="res://assets/fasilkom.png" id="8_6hs23"]
+[ext_resource type="Texture2D" uid="uid://cyu31awolixii" path="res://assets/kindpng_1725259.png" id="9_fm0cy"]
+[ext_resource type="PackedScene" uid="uid://gowywyxofg1p" path="res://scenes/Plane.tscn" id="9_jejd6"]
+[ext_resource type="PackedScene" uid="uid://bmdbtu6qccjor" path="res://scenes/Gedung.tscn" id="10_r8038"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a4i2c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hmh53"]
+size = Vector2(74, 77)
+
+[sub_resource type="Animation" id="Animation_wvwgw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-186, 176)]
+}
+
+[sub_resource type="Animation" id="Animation_8to27"]
+resource_name = "move"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-186, 176), Vector2(1336, 176)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eohar"]
+_data = {
+"RESET": SubResource("Animation_wvwgw"),
+"move": SubResource("Animation_8to27")
+}
+
+[node name="Node" type="Node"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="Sprite2D" parent="Background"]
+position = Vector2(582.5, 326)
+scale = Vector2(2.97743, 3.04938)
+texture = ExtResource("1_7efic")
+
+[node name="Cloud" type="Sprite2D" parent="Background"]
+position = Vector2(583.5, 327.5)
+scale = Vector2(2.97396, 3.04012)
+texture = ExtResource("2_tiuxr")
+
+[node name="Platform" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(-136, 673)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("1_jk8ti")
+
+[node name="StaticBody2D" parent="Platform" instance=ExtResource("1_ba7cs")]
+position = Vector2(-44.2857, 10)
+
+[node name="GreenShip" parent="." instance=ExtResource("2_wotnx")]
+z_index = 1
+position = Vector2(-144, 605)
+collision_layer = 4
+collision_mask = 7
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 328)
+zoom = Vector2(0.7, 0.7)
+
+[node name="KillZone" parent="." instance=ExtResource("6_dq3m5")]
+position = Vector2(405, 872)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(28, 43)
+shape = SubResource("WorldBoundaryShape2D_a4i2c")
+
+[node name="ObjectiveAreaLevel2" type="Area2D" parent="."]
+position = Vector2(1234, -74)
+collision_mask = 5
+script = ExtResource("3_5cjj6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveAreaLevel2"]
+position = Vector2(55, 22.5)
+shape = SubResource("RectangleShape2D_hmh53")
+
+[node name="FasilkomLogo" type="Sprite2D" parent="ObjectiveAreaLevel2"]
+position = Vector2(55, 22)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_6hs23")
+
+[node name="YouWin" type="Sprite2D" parent="ObjectiveAreaLevel2"]
+visible = false
+z_index = 1
+position = Vector2(-615, 364)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_fm0cy")
+
+[node name="Ufo" parent="." instance=ExtResource("9_jejd6")]
+position = Vector2(-186, 176)
+scale = Vector2(0.2, 0.2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ufo"]
+libraries = {
+"": SubResource("AnimationLibrary_eohar")
+}
+autoplay = "move"
+
+[node name="Gedung" type="Node2D" parent="."]
+
+[node name="Gedung" parent="Gedung" instance=ExtResource("10_r8038")]
+position = Vector2(224, 639)
+scale = Vector2(0.5, 0.5)
+
+[node name="Gedung2" parent="Gedung" instance=ExtResource("10_r8038")]
+position = Vector2(1414, 643)
+scale = Vector2(0.5, 0.5)
+
+[node name="Gedung3" parent="Gedung" instance=ExtResource("10_r8038")]
+position = Vector2(624, 454)
+scale = Vector2(0.5, 0.5)
+
+[node name="Gedung4" parent="Gedung" instance=ExtResource("10_r8038")]
+position = Vector2(623, 834)
+rotation = -3.14159
+scale = Vector2(0.5, 0.5)
+
+[node name="Gedung5" parent="Gedung" instance=ExtResource("10_r8038")]
+position = Vector2(988, 785)
+scale = Vector2(0.5, 0.5)
+
+[node name="Gedung6" parent="Gedung" instance=ExtResource("10_r8038")]
+position = Vector2(180, -66)
+rotation = -3.14159
+scale = Vector2(0.5, 0.5)
+
+[node name="Gedung7" parent="Gedung" instance=ExtResource("10_r8038")]
+position = Vector2(1059, -123)
+rotation = -3.14159
+scale = Vector2(0.5, 0.5)
+
+[connection signal="body_entered" from="ObjectiveAreaLevel2" to="ObjectiveAreaLevel2" method="_on_body_entered"]

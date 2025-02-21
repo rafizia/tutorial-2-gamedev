@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://gowywyxofg1p"]
+
+[ext_resource type="Texture2D" uid="uid://bmcpafa0wxp8c" path="res://assets/—Pngtree—ufo_1436773.png" id="1_actci"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pu18d"]
+size = Vector2(595, 366)
+
+[node name="Ufo" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_actci")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 68)
+shape = SubResource("RectangleShape2D_pu18d")

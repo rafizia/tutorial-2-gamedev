@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfvg30kagogmu"]
+
+[ext_resource type="Texture2D" uid="uid://cbwgix0inp3tk" path="res://assets/snow.png" id="1_adnc6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_utf17"]
+size = Vector2(280, 70.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpyea"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(35, -0.25)
+shape = SubResource("RectangleShape2D_utf17")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(165, -46)
+shape = SubResource("RectangleShape2D_vpyea")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(-95, -46)
+shape = SubResource("RectangleShape2D_vpyea")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_adnc6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(70, 0)
+texture = ExtResource("1_adnc6")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(140, 0)
+texture = ExtResource("1_adnc6")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(-70, 0)
+texture = ExtResource("1_adnc6")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(-94.75, -45.75)
+scale = Vector2(0.278571, 0.278571)
+texture = ExtResource("1_adnc6")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+position = Vector2(165, -46)
+scale = Vector2(0.278571, 0.278571)
+texture = ExtResource("1_adnc6")
